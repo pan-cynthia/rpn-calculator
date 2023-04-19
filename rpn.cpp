@@ -4,6 +4,7 @@
 #include <sstream>
 #include <string>
 #include <vector>
+#include <math.h>
 
 using namespace std;
 
@@ -19,6 +20,8 @@ int main() {
   // calculate result
   double result = rpn(parsed);
   cout << result << endl;
+
+  return 0;
 }
 
 vector<string> parse(string input) {
@@ -36,7 +39,16 @@ double rpn(vector<string> input) {
   vector<double> stack;
 
   for (string s : input) {
-    if (isOperator(s)) {
+    if (s == "<" || s == ">") { 
+      // only one operand needed to perform operation
+      if (stack.empty()) {
+        cout << "error: not enough operands" << endl;
+        exit(1);
+      }
+      double c = stack.back();
+      stack.pop_back();
+      stack.push_back(operation(c, 0, s));
+    } else if (isOperator(s)) {
       // check that there are at least two operands on the stack
       if (stack.size() < 2) {
         cout << "error: invalid postfix expression" << endl;
@@ -92,6 +104,10 @@ double operation(double a, double b, string op) {
       exit(1);
     }
     return b / a;
+  } else if (op == "<") {
+    return floor(a);
+  } else if (op == ">") {
+    return ceil(a);
   }
   return -1;
 }
