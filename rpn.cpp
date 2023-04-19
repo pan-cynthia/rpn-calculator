@@ -80,7 +80,7 @@ double rpn(vector<string> input) {
 }
 
 bool isOperator(string op) {
-  return op == "+" || op == "-" || op == "*" || op == "/";
+  return op == "+" || op == "-" || op == "*" || op == "/" || op == "**";
 }
 
 bool isOperand(string op) {
@@ -108,6 +108,19 @@ double operation(double a, double b, string op) {
     return floor(a);
   } else if (op == ">") {
     return ceil(a);
+  } else if (op == "**") {
+    // exponentiation errors
+    if (a == 0 && b == 0) {
+      cout << "error: undefined, base and exponent are both 0" << endl;
+      exit(1);
+    } else if (b < 0 && a != int(a)) {
+      cout << "error: undefined, negative base and non-integer exponent" << endl;
+      exit(1);
+    } else if (b == 0 && a < 0) {
+      cout << "error: undefined, base is 0 and exponent is negative" << endl;
+      exit(1);
+    }
+    return pow(b, a);
   }
   return -1;
 }
