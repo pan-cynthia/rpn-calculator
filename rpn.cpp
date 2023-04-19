@@ -82,6 +82,10 @@ double operation(double a, double b, string op) {
   } else if (op == "*") {
     return b * a;
   } else if (op == "/") {
+    if (a == 0) {
+      cout << "error: division by 0" << endl;
+      exit(1);
+    }
     return b / a;
   }
   return -1;
