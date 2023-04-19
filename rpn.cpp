@@ -37,7 +37,12 @@ double rpn(vector<string> input) {
 
   for (string s : input) {
     if (isOperator(s)) {
-      //pop two operands off of the stack
+      // check that there are at least two operands on the stack
+      if (stack.size() < 2) {
+        cout << "error: invalid postfix expression" << endl;
+        exit(1);
+      }
+      // pop two operands off of the stack
       double a = stack.back();
       stack.pop_back();
       double b = stack.back();
