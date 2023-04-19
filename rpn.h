@@ -7,6 +7,6 @@
 using namespace std;
 
 // function that splits input string by spaces into an array
-vector<char> parse(string input);
+vector<string> parse(string input);
 
 #endif // RPNCALCULATOR_RPN_H

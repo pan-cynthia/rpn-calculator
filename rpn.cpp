@@ -1,6 +1,7 @@
 #include "rpn.h"
 
 #include <iostream>
+#include <sstream>
 #include <string>
 #include <vector>
 
@@ -13,13 +14,15 @@ int main() {
   getline(cin, input);
 
   // parse given input by spaces
-  vector<char> parsed = parse(input);
+  vector<string> parsed = parse(input);
 }
 
-vector<char> parse(string input) {
-  vector<char> parsed;
-  for (char c : input) {
-    if (c != ' ') parsed.push_back(c);
+vector<string> parse(string input) {
+  vector<string> parsed;
+  string non_space;
+  istringstream iss(input);
+  while (iss >> non_space) {
+    parsed.push_back(non_space);
   }
   return parsed;
 }
