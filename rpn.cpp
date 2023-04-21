@@ -1,4 +1,5 @@
 #include "rpn.h"
+#include "visualization.h"
 
 #include <iostream>
 #include <sstream>
@@ -8,7 +9,17 @@
 
 using namespace std;
 
-int main() {
+int main(int argc, char *argv[]) {
+  if (argc > 2) {
+    // more than one argument passed in
+    cout << "error: too many arguments" << endl;
+    exit(1);
+  } else if (argc == 2 && strcmp(argv[1], "-l") != 0) {
+    // check if invalid flag was passed in
+    cout << "error: invalid flag" << endl;
+    exit(1);
+  }
+
   // prompt user for input
   string input;
   cout << "rpn> ";
@@ -20,6 +31,11 @@ int main() {
   // calculate result
   double result = rpn(parsed);
   cout << result << endl;
+
+  // print out list of inputs in parse tree format
+  if (argc == 2 && strcmp(argv[1], "-l") == 0) {
+    list(parsed);
+  }
 
   return 0;
 }
@@ -80,7 +96,7 @@ double rpn(vector<string> input) {
 }
 
 bool isOperator(string op) {
-  return op == "+" || op == "-" || op == "*" || op == "/" || op == "**";
+  return op == "+" || op == "-" || op == "*" || op == "/" || op == "**" || op == "<" || op == ">";
 }
 
 bool isOperand(string op) {
