@@ -12,11 +12,11 @@ using namespace std;
 int main(int argc, char *argv[]) {
   if (argc > 2) {
     // more than one argument passed in
-    cout << "error: too many arguments" << endl;
+    cerr << "error: too many arguments" << endl;
     exit(1);
   } else if (argc == 2 && strcmp(argv[1], "-l") != 0) {
     // check if invalid flag was passed in
-    cout << "error: invalid flag" << endl;
+    cerr << "error: invalid flag" << endl;
     exit(1);
   }
 
@@ -58,7 +58,7 @@ double rpn(vector<string> input) {
     if (s == "<" || s == ">") { 
       // only one operand needed to perform operation
       if (stack.empty()) {
-        cout << "error: not enough operands" << endl;
+        cerr << "error: not enough operands" << endl;
         exit(1);
       }
       double c = stack.back();
@@ -67,7 +67,7 @@ double rpn(vector<string> input) {
     } else if (isOperator(s)) {
       // check that there are at least two operands on the stack
       if (stack.size() < 2) {
-        cout << "error: invalid postfix expression" << endl;
+        cerr << "error: invalid postfix expression" << endl;
         exit(1);
       }
       // pop two operands off of the stack
@@ -82,13 +82,13 @@ double rpn(vector<string> input) {
       // element is an operand, push it onto the stack
       stack.push_back(stod(s));
     } else {
-      cout << "invalid input" << endl;
+      cerr << "invalid input" << endl;
       exit(1);
     }
   }
 
   if (stack.size() > 1) {
-    cout << "error: incomplete postfix expression, missing operators/operands" << endl;
+    cerr << "error: incomplete postfix expression, missing operators/operands" << endl;
     exit(1);
   }
 
@@ -116,7 +116,7 @@ double operation(double a, double b, string op) {
     return b * a;
   } else if (op == "/") {
     if (a == 0) {
-      cout << "error: division by 0" << endl;
+      cerr << "error: division by 0" << endl;
       exit(1);
     }
     return b / a;
@@ -127,13 +127,13 @@ double operation(double a, double b, string op) {
   } else if (op == "**") {
     // exponentiation errors
     if (a == 0 && b == 0) {
-      cout << "error: undefined, base and exponent are both 0" << endl;
+      cerr << "error: undefined, base and exponent are both 0" << endl;
       exit(1);
     } else if (b < 0 && a != int(a)) {
-      cout << "error: undefined, negative base and non-integer exponent" << endl;
+      cerr << "error: undefined, negative base and non-integer exponent" << endl;
       exit(1);
     } else if (b == 0 && a < 0) {
-      cout << "error: undefined, base is 0 and exponent is negative" << endl;
+      cerr << "error: undefined, base is 0 and exponent is negative" << endl;
       exit(1);
     }
     return pow(b, a);
