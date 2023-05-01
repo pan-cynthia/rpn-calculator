@@ -7,9 +7,9 @@
 #include <string>
 
 void list(vector<string> input) {
-    vector<string> stack;
+  vector<string> stack;
 
-   for (string s : input) {
+  for (string s : input) {
     if (!isOperator(s)) {
       stack.push_back(s);
     } else if (s == "<" || s == ">") {
@@ -24,29 +24,29 @@ void list(vector<string> input) {
       string temp = "(" + s + " " + b + " " + a + " )";
       stack.push_back(temp);
     }
-   }
+  }
 
-    printOutput(stack.back());
+  printOutput(stack.back());
 }
 
 void printOutput(string output) {
-    int indent = 0;
-    string non_space;
-    istringstream iss(output);
-    while (iss >> non_space) {
-        if (non_space.find('(') != string::npos) {
-            // string is of form parentheses operator
-            // print indentation
-            cout << string(indent, ' ');
-            indent += 3;
-        } else if (non_space == ")") {
-            // decrease indentation
-            indent -= 3;
-            cout << string(indent, ' ');
-        } else {
-            // string is an operand, don't change indentation
-            cout << string(indent, ' ');
-        }
-        cout << non_space << endl;
+  int indent = 0;
+  string non_space;
+  istringstream iss(output);
+  while (iss >> non_space) {
+    if (non_space.find('(') != string::npos) {
+      // string is of form parentheses operator
+      // print indentation
+      cout << string(indent, ' ');
+      indent += 3;
+    } else if (non_space == ")") {
+      // decrease indentation
+      indent -= 3;
+      cout << string(indent, ' ');
+    } else {
+      // string is an operand, don't change indentation
+      cout << string(indent, ' ');
     }
+    cout << non_space << endl;
+  }
 }
